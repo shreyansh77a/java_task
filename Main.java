@@ -1,97 +1,131 @@
-//Task 1 
+//lab assignment 1
+
+
+import java.util.Scanner; 
+// Task 1: Student Class 
 class Student { 
-    private int rollNumber; 
-    private String name; 
-    private String course; 
-    private double marks; 
-    private char grade; 
+String rollNo; 
+String name; 
+String course; 
+double marks; 
+String grade; 
+Scanner sc = new Scanner(System.in); 
+// Method to input student details  , method means function
+public void inputStudent() { 
+        System.out.print("Enter Roll Number: "); 
+        rollNo = sc.nextLine(); 
  
-
-    public void setRollNumber(int rollNumber) { this.rollNumber = rollNumber; } 
-    public void setName(String name) { this.name = name; } 
-    public void setCourse(String course) { this.course = course; } 
-    public void setMarks(double marks) {  
-        this.marks = marks;  
-        this.grade = calculateGrade(marks);  
+        System.out.print("Enter Name: "); 
+        name = sc.nextLine(); 
+ 
+        System.out.print("Enter Course: "); 
+        course = sc.nextLine(); 
+ 
+        System.out.print("Enter Marks: "); 
+        marks = sc.nextDouble(); 
+        sc.nextLine(); // Consume newline 
+ 
+        calculateGrade(); // Calculate grade after marks are entered 
     } 
-
-    private char calculateGrade(double marks) { 
-        if (marks >= 90) return 'A'; 
-        else if (marks >= 80) return 'B'; 
-        else if (marks >= 70) return 'C'; 
-        else if (marks >= 60) return 'D'; 
-        else return 'F'; 
+ 
+    // Method to calculate grade based on marks 
+    public void calculateGrade() { 
+        if (marks >= 90) grade = "A+"; 
+        else if (marks >= 80) grade = "A"; 
+        else if (marks >= 70) grade = "B"; 
+        else if (marks >= 60) grade = "C"; 
+        else if (marks >= 50) grade = "D"; 
+        else grade = "F"; 
     } 
  
- 
+    // Method to display student details 
     public void displayStudent() { 
-        System.out.println("Roll Number: " + rollNumber); 
-        System.out.println("Name       : " + name); 
-        System.out.println("Course     : " + course); 
-        System.out.println("Marks      : " + marks); 
-        System.out.println("Grade      : " + grade); 
-        System.out.println("---------------------------"); 
+        System.out.println("Roll No: " + rollNo); 
+        System.out.println("Name: " + name); 
+        System.out.println("Course: " + course); 
+        System.out.println("Marks: " + marks); 
+        System.out.println("Grade: " + grade); 
+        System.out.println("-----------------------------------"); 
     } 
 } 
  
-public class Main{ 
-    public static void main(String[] args) { 
-        Student s1 = new Student(); 
-        s1.setRollNumber(1); 
-        s1.setName("Shreyansh"); 
-        s1.setCourse("Math"); 
-        s1.setMarks(33); 
-        s1.displayStudent(); 
+// ======================================== 
+// Task 2: Student Management System Class 
+// ======================================== 
+class StudentManagementSystem { 
+    Student[] students;  // Simple array to store students 
+    int studentCount; //Keeps track of how many students are currently stored in the system
+    Scanner sc = new Scanner(System.in); 
  
-        Student s2= new Student();
-        s2.setRollNumber(2);
-        s2.setName("Harshit");
-        s2.setCourse("Math"); 
-        s2.setMarks(88); 
-        s2.displayStudent();
-
-        Student s3= new Student();
-        s3.setRollNumber(3);
-        s3.setName("Aditya");
-        s3.setCourse("Math"); 
-        s3.setMarks(21); 
-        s3.displayStudent();
-
-
+    public void initializeSystem(int size) { 
+        students = new Student[size]; 
+        studentCount = 0; 
     } 
-}
-
-
-
-// Task 2 
-import java.util.Scanner;
-
-
-class Array{
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter number of student: ");
-        int n = sc.nextInt();
-        sc.nextLine();
-        Student[] students= new Student[n];
-        for (int i =0 ;i<n;i++){
-            System.out.println("Enter details for student " + (i+1));
-            Student s = new Student();
-            System.out.println("Roll Number: ");
-            s.setRollNumber(sc.nextInt());
-            sc.nextLine();
-            System.out.println("Enter Name: ");
-            s.setName(sc.nextLine());
-            System.out.println("Course: ");
-            s.setCourse(sc.nextLine());
-            System.out.println("Marks: ");
-            s.setMarks(sc.nextDouble());
-            sc.nextLine();
-            students[i] = s;
-            System.out.println("Student added successfully\n");
-
-
-        }
-    }
+ 
+    // Method to add new student 
+    public void addStudent() { 
+        if (studentCount >= students.length) { 
+            System.out.println("Cannot add more students. Array is full!"); 
+            return; 
+        } 
+        Student s = new Student(); 
+        s.inputStudent(); 
+        students[studentCount] = s; 
+        studentCount++; 
+        System.out.println("Student added successfully!\n"); 
+    } 
+ 
+    // Method to display all student records 
+    public void displayAllStudents() { 
+        if (studentCount == 0) { 
+            System.out.println("No student records available!\n"); 
+            return; 
+        } 
+        System.out.println("======= Student Records ======="); 
+        for (int i = 0; i < studentCount; i++) { 
+            students[i].displayStudent(); 
+        } 
+    } 
+} 
+ 
+// ========================== 
+// Task 3: Main Driver Class 
+// ========================== 
+public class Main { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        StudentManagementSystem sms = new StudentManagementSystem(); 
+ 
+        System.out.print("Enter the maximum number of students: "); 
+        int size = sc.nextInt(); 
+        sc.nextLine(); // Consume newline 
+        sms.initializeSystem(size); 
+ 
+        int choice; 
+        do { 
+            System.out.println("\n===== Student Record Management System ====="); 
+            System.out.println("1. Add Student"); 
+            System.out.println("2. Display All Students"); 
+            System.out.println("3. Exit"); 
+            System.out.print("Enter your choice: "); 
+            choice = sc.nextInt(); 
+            sc.nextLine(); // Consume newline 
+ 
+            switch (choice) { 
+                case 1: 
+                    sms.addStudent(); 
+                    break; 
+                case 2: 
+                    sms.displayAllStudents(); 
+                    break; 
+                case 3: 
+                    System.out.println("Exiting the program. Goodbye!"); 
+                    break; 
+                default: 
+                    System.out.println("Invalid choice! Please try again."); 
+            } 
+        } while (choice != 3); 
+ 
+sc.close(); 
+} 
 }
