@@ -1,0 +1,48 @@
+//lab_code_2
+class Shape {
+    void area(){
+        System.out.println("area of shape");
+    }
+    
+}
+
+class circle extends Shape{
+    
+    double radius;
+    //constructor
+    circle( double radius){
+        this.radius = radius;
+    }
+    void area(){
+        double result = 3.14*radius*radius;
+        System.out.println("area of circle is "+result);
+    }
+}
+
+class rectangle extends Shape{
+    double length;
+    double width;
+    //constructor
+    rectangle( double length, double width){
+        this.length = length;
+        this.width = width;
+    }
+
+    void area(){
+        double result = length*width;
+        System.out.println("area of rectangle is "+result);
+    }
+
+}
+
+public class Inheritance{
+    public static void main( String[] args){
+        
+
+        circle c = new circle( 5.5);
+        c.area();
+
+        rectangle r = new rectangle( 4.5, 6.5);
+        r.area();
+    }
+}
