@@ -1,0 +1,77 @@
+//lab_code_4
+
+ class Students {
+    int Roll_number;
+    String Name;
+    String Course;
+    //constructors
+    Students( int Roll_number , String name , String cource){
+        this.Roll_number = Roll_number;
+        this.Name = name;
+        this.Course = cource;
+    }
+    void display(){
+        System.out.println("Roll number of student is "+Roll_number);
+        System.out.println("Name of student is "+Name);
+        System.out.println("Course of student is "+Course);
+    }
+
+    
+}
+class Marks extends Students{
+    int Marks1;
+    int Marks2;
+    int Marks3;
+    //constructor
+    Marks( int Roll_number , String name , String cource, int Marks1, int Marks2, int Marks3){
+        super(Roll_number, name, cource);
+        this.Marks1 = Marks1;
+        this.Marks2 = Marks2;
+        this.Marks3 = Marks3;
+    }
+    void display(){
+        super.display();
+        System.out.println("Marks1 of student is "+Marks1);
+        System.out.println("Marks2 of student is "+Marks2);
+        System.out.println("Marks3 of student is "+Marks3);
+
+    }
+
+}
+class Result extends Marks{
+    int total_marks;
+    int percentage;
+    char grade;
+    //constructor
+    Result( int Roll_number , String name , String cource, int Marks1, int Marks2, int Marks3){
+        super(Roll_number, name, cource, Marks1, Marks2, Marks3);
+        this.total_marks = Marks1+Marks2+Marks3;
+        this.percentage = (total_marks/3);
+        if( percentage>=90){
+            this.grade = 'A';
+        }else if( percentage>=80){
+            this.grade = 'B';
+        }else if( percentage>=70){
+            this.grade = 'C';
+        }else if( percentage>=60){
+            this.grade = 'D';
+        }else{
+            this.grade = 'F';
+        }
+    }
+
+    void display(){
+        super.display();
+        System.out.println("Total marks of student is "+total_marks);
+        System.out.println("Percentage of student is "+percentage);
+        System.out.println("Grade of student is "+grade);
+    }
+
+}
+
+public class StudentDetails{
+    public static void main( String[] args ){
+        Result r = new Result( 1, "shriyash", "Btech", 85, 90, 95);
+        r.display();
+    }
+}
